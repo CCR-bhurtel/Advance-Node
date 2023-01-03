@@ -1,0 +1,22 @@
+                    node index.js
+                            |
+                process and execute code in index.js file
+                            |
+                Do we still have work to do? Look at times,  --NO> Exit the program
+                        OS tasks, threadpools
+                            |
+                            Yes
+                Run setTimeouts', setInterval's
+                            |
+                Run callbacks for any os tasks or threadpool
+                tasks that are done. (this is 99% of our code)
+                            |
+                Pause and wait for stuff to happen
+                            |
+                Run any 'setImmediate' functions
+                            |
+                Handle close events 
+                    (Repeat third step)
+
+
+The one execution of the event loop is termed as a "Kick".
