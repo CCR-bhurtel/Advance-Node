@@ -1,2 +1,10 @@
 Clustering 
     (Donot use in nodemon; performance issue)
+    When running the node index.js,
+        At first Cluster Manager starts up
+        and the CM starts other worker instances in next go
+
+        Difference between worker threads and child process:
+            Different instances of child process cannot communicate with other but that of worker threads can re haii
+
+Benchmarking :- use apache benchmark, hard to configure in windoes so use WSL (ubuntu)
