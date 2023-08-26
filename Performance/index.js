@@ -4,38 +4,27 @@ const Os = require('os');
 
 process.env.UV_THREADPOOL_SIZE = 1; // only one thread available for each child
 
-if (cluster.isPrimary) {
-    const totalCpus = Os.cpus().length;
-    console.log('mater process running', process.pid);
-    // Causes index.js to be executed again but in child mode
-    for (let i = 0; i < totalCpus; i++) {
-        cluster.fork();
-        if (i == 1) break;
-    }
+// if (cluster.isMaster) {
+    //const cpus = Os.cpus().length
+    // loop through cpus
+//               cluster.fork();
+// }else
 
-    cluster.on('error', (err) => {
-        console.log(err);
-    });
+// Child instances
+const express = require('express');
+const app = express();
 
-    cluster.on('exit', (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} died`);
-        cluster.fork();
+app.get('/fast', (req, res) => {
+    console.log('Here comes the superman');
+    res.send(`This was fast, ${process.pid}`);
+});
+app.get('/', (req, res) => {
+    crypto.pbkdf2('a', 'b', 100000, 512, 'sha512', (err, key) => {
+        console.log(key);
+        res.send(`Hello there, ${process.pid}`);
     });
-} else if (cluster.isWorker) {
-    // Child instances
-    const express = require('express');
-    const app = express();
+});
 
-    app.get('/fast', (req, res) => {
-        res.send(`This was fast, ${process.pid}`);
-    });
-    app.get('/', (req, res) => {
-        crypto.pbkdf2('a', 'b', 100000, 512, 'sha512', (err, key) => {
-            res.send(`Hello there, ${process.pid}`);
-        });
-    });
-
-    app.listen(3000, (req, res) => {
-        console.log(`Server listening to port 3000, ${process.pid}`);
-    });
-}
+app.listen(3000, (req, res) => {
+    console.log(`Server listening to port 3000, ${process.pid}`);
+});

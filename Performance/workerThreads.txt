@@ -1,0 +1,9 @@
+Options argument
+While creating a worker, you can also pass a bunch of configurations to the worker.
+
+argv — Lets you append custom arguments to the original process.argv object
+env — Lets you add environment variables specific to a thread.
+     These variables are cloned so the parent and the worker thread will have separate copies of these variables.
+eval — Lets you evaluate strings as JavaScript expressions.
+resourceLimits — Sets resource limits to a worker so that once a worker reaches that limit, it will automatically terminate.
+workerData — Data that gets cloned and passed to the worker.

@@ -1,6 +1,6 @@
 const https = require('https');
 
-process.UV_THREADPOOL_SIZE = 5;
+process.UV_THREADPOOL_SIZE = 2;
 
 const crypto = require('crypto');
 
@@ -10,6 +10,7 @@ const start = Date.now();
 const path = require('path');
 // async file's content
 function performRequest() {
+    // this is not a work of libuv or v8, its upto os (libuv waits for response from os)
     https
         .request('https://www.google.com/', (res) => {
             res.on('data', (data) => {});
